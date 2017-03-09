@@ -6,7 +6,7 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="@color/none_player_color"/>
-            <size android:height="25dp" android:width="25dp" />
+            <size android:height="20dp" android:width="20dp" />
         </shape>
     </item>
 </layer-list>

@@ -15,6 +15,7 @@ import com.medeuz.connectfour.presenter.GamePresenterImpl;
 import com.medeuz.connectfour.presenter.IGamePresenter;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class GameActivity extends Activity implements IView {
 
@@ -43,6 +44,7 @@ public class GameActivity extends Activity implements IView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        ButterKnife.bind(this);
 
         prepareBoard();
         mGamePresenterImpl = new GamePresenterImpl(this, DEFAULT_ROWS_COUNT, DEFAULT_COLS_COUNT);
@@ -97,13 +99,15 @@ public class GameActivity extends Activity implements IView {
     }
 
     private void prepareBoard() {
+        winnerTv.setVisibility(View.GONE);
+        turnIndicatorIv.setImageResource(R.drawable.first_player_circle);
         boardCells = new ImageView[DEFAULT_ROWS_COUNT][DEFAULT_COLS_COUNT];
         for (int row = 0; row < DEFAULT_ROWS_COUNT; row++) {
             ViewGroup rowVg = (ViewGroup) ((ViewGroup) boardView).getChildAt(row);
             rowVg.setClipChildren(false);
             for (int col = 0; col < DEFAULT_COLS_COUNT; col++) {
                 ImageView imageView = (ImageView) rowVg.getChildAt(col);
-                imageView.setImageResource(R.color.none_player_color);
+                imageView.setImageResource(R.drawable.none_player_circle);
                 boardCells[row][col] = imageView;
             }
         }
@@ -119,10 +123,10 @@ public class GameActivity extends Activity implements IView {
 
     private void resetGameView() {
         winnerTv.setVisibility(View.GONE);
-        turnIndicatorIv.setImageResource(R.color.first_player_color);
+        turnIndicatorIv.setImageResource(R.drawable.first_player_circle);
         for (int row = 0; row < DEFAULT_ROWS_COUNT; row++) {
             for (int col = 0; col < DEFAULT_COLS_COUNT; col++) {
-                boardCells[row][col].setImageResource(R.color.none_player_color);
+                boardCells[row][col].setImageResource(R.drawable.none_player_circle);
             }
         }
     }
