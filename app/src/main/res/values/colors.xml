@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="first_player_color">@color/yellow</color>
+    <color name="second_player_color">@color/red</color>
+    <color name="none_player_color">@android:color/white</color>
+    <color name="cell_background_color">@color/blue</color>
+
+    <color name="yellow">#FFFF00</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#2070FF</color>
+
+</resources>
