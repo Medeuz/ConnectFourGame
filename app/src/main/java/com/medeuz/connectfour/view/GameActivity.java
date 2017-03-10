@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,8 +65,24 @@ public class GameActivity extends Activity implements IView {
     }
 
     @Override
-    public void showTurn(int col, int row, Cell.Player player) {
-        //ToDo дописать анимацию падения фишки в позицию
+    public void showTurn(int row, int col, Cell.Player player) {
+
+        float move = -(boardCells[row][col].getHeight() * row
+                + boardCells[row][col].getHeight() + 15);
+        boardCells[row][col].setY(move);
+
+        if (player == Cell.Player.FIRST_PLAYER) {
+            boardCells[row][col].setImageResource(R.drawable.first_player_circle);
+        } else {
+            boardCells[row][col].setImageResource(R.drawable.second_player_circle);
+        }
+
+        TranslateAnimation anim = new TranslateAnimation(0, 0, 0, Math.abs(move));
+        anim.setDuration(850);
+        anim.setFillAfter(true);
+
+        boardCells[row][col].startAnimation(anim);
+
         mGamePresenterImpl.endOfTurn();
     }
 
@@ -78,7 +95,7 @@ public class GameActivity extends Activity implements IView {
         }
     }
 
-    // As alternative we can pass those listener via ButterKnife
+    // As alternative we can pass those listeners via ButterKnife
     private void setListeners() {
         resetBtn.setOnClickListener((v) -> {
             mGamePresenterImpl.resetGame();
@@ -99,7 +116,6 @@ public class GameActivity extends Activity implements IView {
     }
 
     private void prepareBoard() {
-        winnerTv.setVisibility(View.GONE);
         turnIndicatorIv.setImageResource(R.drawable.first_player_circle);
         boardCells = new ImageView[DEFAULT_ROWS_COUNT][DEFAULT_COLS_COUNT];
         for (int row = 0; row < DEFAULT_ROWS_COUNT; row++) {
