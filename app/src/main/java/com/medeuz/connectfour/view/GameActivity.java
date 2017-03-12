@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.medeuz.connectfour.R;
-import com.medeuz.connectfour.model.Cell;
 import com.medeuz.connectfour.presenter.GamePresenterImpl;
 import com.medeuz.connectfour.presenter.IGamePresenter;
+import com.medeuz.connectfour.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,15 +48,17 @@ public class GameActivity extends Activity implements IView {
         ButterKnife.bind(this);
 
         prepareBoard();
-        mGamePresenterImpl = new GamePresenterImpl(this, DEFAULT_ROWS_COUNT, DEFAULT_COLS_COUNT);
+        boolean isOnePlayer = getIntent().getBooleanExtra(Utils.EXTRA_IS_ONE_PLAYER, false);
+        mGamePresenterImpl
+                = new GamePresenterImpl(this, DEFAULT_ROWS_COUNT, DEFAULT_COLS_COUNT, isOnePlayer);
 
         setListeners();
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void showWinner(Cell.Player player) {
-        int color = player == Cell.Player.FIRST_PLAYER
+    public void showWinner(Utils.Player player) {
+        int color = player == Utils.Player.FIRST_PLAYER
                 ? getResources().getColor(R.color.first_player_color)
                 : getResources().getColor(R.color.second_player_color);
 
@@ -65,13 +67,13 @@ public class GameActivity extends Activity implements IView {
     }
 
     @Override
-    public void showTurn(int row, int col, Cell.Player player) {
+    public void showTurn(int row, int col, Utils.Player player) {
 
         float move = -(boardCells[row][col].getHeight() * row
                 + boardCells[row][col].getHeight() + 15);
         boardCells[row][col].setY(move);
 
-        if (player == Cell.Player.FIRST_PLAYER) {
+        if (player == Utils.Player.FIRST_PLAYER) {
             boardCells[row][col].setImageResource(R.drawable.first_player_circle);
         } else {
             boardCells[row][col].setImageResource(R.drawable.second_player_circle);
@@ -87,8 +89,8 @@ public class GameActivity extends Activity implements IView {
     }
 
     @Override
-    public void turnChange(Cell.Player player) {
-        if (player == Cell.Player.FIRST_PLAYER) {
+    public void turnChange(Utils.Player player) {
+        if (player == Utils.Player.FIRST_PLAYER) {
             turnIndicatorIv.setImageResource(R.drawable.first_player_circle);
         } else {
             turnIndicatorIv.setImageResource(R.drawable.second_player_circle);

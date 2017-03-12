@@ -1,6 +1,8 @@
 package com.medeuz.connectfour.model;
 
 
+import com.medeuz.connectfour.utils.Utils;
+
 public class Board {
 
     private int mColsCount;
@@ -34,11 +36,11 @@ public class Board {
         return hasWinner;
     }
 
-    public Cell.Player getCurrentPlayer() {
+    public Utils.Player getCurrentPlayer() {
         if (firstTurn)
-            return Cell.Player.FIRST_PLAYER;
+            return Utils.Player.FIRST_PLAYER;
         else
-            return Cell.Player.SECOND_PLAYER;
+            return Utils.Player.SECOND_PLAYER;
     }
 
     public void toggleTurn() {
@@ -49,7 +51,6 @@ public class Board {
         mCells[row][col].setPlayer(getCurrentPlayer());
     }
 
-    //ToDo debug this function!
     public boolean isWinTurn() {
         for (int col = 0; col < mColsCount; col++) {
             if (isFourConnected(getCurrentPlayer(), 0, 1, 0, col, 0)
@@ -74,14 +75,14 @@ public class Board {
 
     public int lastAvailableRow(int col) {
         for (int row = mRowsCount - 1; row >= 0; row--) {
-            if (mCells[row][col].getPlayer() == Cell.Player.NONE) {
+            if (mCells[row][col].getPlayer() == Utils.Player.NONE) {
                 return row;
             }
         }
         return -1;
     }
 
-    private boolean isFourConnected(Cell.Player player, int x, int y, int row, int col, int count) {
+    private boolean isFourConnected(Utils.Player player, int x, int y, int row, int col, int count) {
         if (count >= 4) {
             return true;
         }
@@ -96,6 +97,25 @@ public class Board {
         } else {
             return isFourConnected(player, x, y, row + y, col + x, 0);
         }
+    }
+
+    public int getConnectedCount(Utils.Player player, int x, int y, int row, int col) {
+
+        if (col < 0 || col >= mColsCount || row < 0 || row >= mRowsCount) {
+            return 0;
+        }
+        if (x >= 4)
+            return 0;
+
+        Cell cell = mCells[row][col];
+        if (cell.getPlayer() == player) {
+            return 1 + getConnectedCount(player, x, y, row + y, col + x);
+        } else if (cell.getPlayer() == Utils.Player.NONE){
+            return getConnectedCount(player, x, y, row + y, col + x);
+        } else {
+            return 0;
+        }
+
     }
 
 }

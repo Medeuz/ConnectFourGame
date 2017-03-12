@@ -1,6 +1,7 @@
 package com.medeuz.connectfour.presenter;
 
 
+import com.medeuz.connectfour.ai.Bot;
 import com.medeuz.connectfour.model.Board;
 import com.medeuz.connectfour.view.IView;
 
@@ -8,10 +9,14 @@ public class GamePresenterImpl implements IGamePresenter {
 
     private Board mBoard;
     private IView mView;
+    private Bot mBot;
 
-    public GamePresenterImpl(IView view, int rows, int cols) {
+    public GamePresenterImpl(IView view, int rows, int cols, boolean isSinglePlayer) {
         mBoard = new Board(rows, cols);
         mView = view;
+        if (isSinglePlayer) {
+            mBot = new Bot(rows, cols, mBoard);
+        }
     }
 
     private void makeTurn(int col) {
@@ -43,6 +48,9 @@ public class GamePresenterImpl implements IGamePresenter {
     @Override
     public void playerAction(int col) {
         makeTurn(col);
+        if (mBot != null) {
+            makeTurn(mBot.getSolutionCol());
+        }
     }
 
 }

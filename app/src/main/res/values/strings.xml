@@ -2,4 +2,6 @@
     <string name="app_name">ConnectFour</string>
     <string name="reset_game">Reset</string>
     <string name="winner_text">Winner!</string>
+    <string name="one_player">One Player</string>
+    <string name="two_player">Two Player</string>
 </resources>

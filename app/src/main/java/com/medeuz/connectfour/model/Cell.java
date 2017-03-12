@@ -1,23 +1,21 @@
 package com.medeuz.connectfour.model;
 
 
+import com.medeuz.connectfour.utils.Utils;
+
 public class Cell {
 
-    public enum Player {
-        FIRST_PLAYER, SECOND_PLAYER, NONE
-    }
-
-    private Player mPlayer;
+    private Utils.Player mPlayer;
 
     public Cell() {
-        mPlayer = Player.NONE;
+        mPlayer = Utils.Player.NONE;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(Utils.Player player) {
         mPlayer = player;
     }
 
-    public Player getPlayer() {
+    public Utils.Player getPlayer() {
         return mPlayer;
     }
 

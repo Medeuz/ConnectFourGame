@@ -1,13 +1,13 @@
 package com.medeuz.connectfour.view;
 
 
-import com.medeuz.connectfour.model.Cell;
+import com.medeuz.connectfour.utils.Utils;
 
 public interface IView {
 
-    void showWinner(Cell.Player player);
+    void showWinner(Utils.Player player);
 
-    void showTurn(int row, int col, Cell.Player player);
+    void showTurn(int row, int col, Utils.Player player);
 
-    void turnChange(Cell.Player player);
+    void turnChange(Utils.Player player);
 }
