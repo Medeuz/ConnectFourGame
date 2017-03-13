@@ -24,6 +24,7 @@ https://en.wikipedia.org/wiki/Connect_Four
 * More skilled AI. Not so dummy. For that porpuse should be implemented Alpha-Beta Pruning algo https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
 * Custom View for game table, not array of ImageView's.
 * Move to Android Data Binding when it would support Jack compiler.
+* Improve test cases.
 
 
 
