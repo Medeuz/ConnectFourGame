@@ -8,7 +8,9 @@ import com.medeuz.connectfour.view.IView;
 public class GamePresenterImpl implements IGamePresenter {
 
     private Board mBoard;
+
     private IView mView;
+
     private Bot mBot;
 
     public GamePresenterImpl(IView view, int rows, int cols, boolean isSinglePlayer) {

@@ -5,6 +5,8 @@ import com.medeuz.connectfour.utils.Utils;
 
 public class Board {
 
+    private static final int COUNT_CELLS_FOR_WIN = 4;
+
     private int mColsCount;
 
     private int mRowsCount;
@@ -36,7 +38,8 @@ public class Board {
     }
 
     /***
-     *  Getter for current win state of board
+     * Getter for current win state of board
+     *
      * @return boolean of hasWinner flag
      */
     public boolean isHasWinner() {
@@ -59,7 +62,8 @@ public class Board {
     }
 
     /***
-     *  Process board to check is current player won and sets hasWinner flag to true
+     * Process board to check is current player won and sets hasWinner flag to true
+     *
      * @return boolean which shows is winning turn
      */
     public boolean isWinTurn() {
@@ -86,6 +90,7 @@ public class Board {
 
     /***
      * Getter for last available row in passed col
+     *
      * @param col - in what col we should get last available row
      * @return last available row or -1 if no rows left in passed col
      */
@@ -100,16 +105,17 @@ public class Board {
 
     /***
      * Recursive function which check is passed Cell connected with other 3 cells
+     *
      * @param player current player which cell we checking
-     * @param x parameter for recursion to move col in different directions
-     * @param y parameter for recursion to move row in different directions
-     * @param row of cell
-     * @param col of cell
-     * @param count recursive accumulator of connected cells
+     * @param x      parameter for recursion to move col in different directions
+     * @param y      parameter for recursion to move row in different directions
+     * @param row    of cell
+     * @param col    of cell
+     * @param count  recursive accumulator of connected cells
      * @return boolean is 4 cells connected
      */
     private boolean isFourConnected(Utils.Player player, int x, int y, int row, int col, int count) {
-        if (count >= 4) {
+        if (count >= COUNT_CELLS_FOR_WIN) {
             return true;
         }
 
@@ -117,36 +123,37 @@ public class Board {
             return false;
         }
 
-        Cell cell = mCells[row][col];
-        if (cell.getPlayer() == player) {
-            return isFourConnected(player, x, y, row + y, col + x, count + 1);
-        } else {
-            return isFourConnected(player, x, y, row + y, col + x, 0);
+        int result = 0;
+        if (mCells[row][col].getPlayer() == player) {
+            result = count + 1;
         }
+
+        return isFourConnected(player, x, y, row + y, col + x, result);
     }
 
     //Todo move it to Bot module by changing a little functionality of Board model.
+
     /***
      * Recursive function which calculate count of connected cells needs only for AI Bot.
+     *
      * @param player current player which cell we checking
-     * @param x parameter for recursion to move col in different directions
-     * @param y parameter for recursion to move row in different directions
-     * @param row of cell
-     * @param col of cell
+     * @param x      parameter for recursion to move col in different directions
+     * @param y      parameter for recursion to move row in different directions
+     * @param row    of cell
+     * @param col    of cell
      * @return integer of connected cells
      */
     public int getConnectedCount(Utils.Player player, int x, int y, int row, int col) {
 
-        if (col < 0 || col >= mColsCount || row < 0 || row >= mRowsCount) {
+        if (col < 0 || col >= mColsCount || row < 0 || row >= mRowsCount
+                || x >= COUNT_CELLS_FOR_WIN || y >= COUNT_CELLS_FOR_WIN) {
             return 0;
         }
-        if (x >= 4)
-            return 0;
 
         Cell cell = mCells[row][col];
-        if (cell.getPlayer() == player) {
+        if (mCells[row][col].getPlayer() == player) {
             return 1 + getConnectedCount(player, x, y, row + y, col + x);
-        } else if (cell.getPlayer() == Utils.Player.NONE){
+        } else if (cell.getPlayer() == Utils.Player.NONE) {
             return getConnectedCount(player, x, y, row + y, col + x);
         } else {
             return 0;

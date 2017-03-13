@@ -17,7 +17,7 @@ https://en.wikipedia.org/wiki/Connect_Four
 ## Technical choices
 
 * <b>ButterKnife</b>, because Android Data Binding can not work with Jack compiler but without Jack you can not use Java 8 lambda's. Which I'd like to try in that test project.
-* <b>MVP</b>, pattern which allows separate the presentation layer from the logic without any extra dependencies. The connection between View and Presenter goes across IView and IGamePresenter interfaces. Clean architecture is not very suitable for such little project by my opinion.
+* <b>MVP</b>, pattern which allows separate the presentation layer from the logic without any extra dependencies. The connection between View and Presenter goes across IView and IGamePresenter interfaces.
 
 ## Trade-offs and what should be implemented in future
 
@@ -25,6 +25,7 @@ https://en.wikipedia.org/wiki/Connect_Four
 * Custom View for game table, not array of ImageView's.
 * Move to Android Data Binding when it would support Jack compiler.
 * Improve test cases.
+* Add sound effects.
 
 
 

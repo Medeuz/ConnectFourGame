@@ -15,6 +15,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @BindView(R.id.one_player_btn)
     Button onePlayerBtn;
+
     @BindView(R.id.two_player_btn)
     Button twoPlayersBtn;
 
@@ -25,15 +26,17 @@ public class MainMenuActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         onePlayerBtn.setOnClickListener((view) -> {
-            Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra(Utils.EXTRA_IS_ONE_PLAYER, true);
-            startActivity(intent);
+            startGame(true);
         });
 
         twoPlayersBtn.setOnClickListener((view) -> {
-            Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra(Utils.EXTRA_IS_ONE_PLAYER, false);
-            startActivity(intent);
+            startGame(false);
         });
+    }
+
+    private void startGame(boolean isOnePlayer) {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(Utils.EXTRA_IS_ONE_PLAYER, isOnePlayer);
+        startActivity(intent);
     }
 }

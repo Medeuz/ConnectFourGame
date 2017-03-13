@@ -11,6 +11,10 @@ import org.junit.Test;
 
 public class ModelsUnitTest {
 
+    private static final int ROWS_COUNT = 6;
+    private static final int COLS_COUNT = 7;
+    private static final int COUNT_FOR_WIN = 4;
+
     @Test
     public void cellModelTest() throws Exception {
         Cell cell = new Cell();
@@ -22,11 +26,7 @@ public class ModelsUnitTest {
 
     @Test
     public void boardModelTest() throws Exception {
-        final int countForWin = 4;
-        final int rowsCount = 6;
-        final int colsCount = 7;
-
-        Board board = new Board(rowsCount, colsCount);
+        Board board = new Board(ROWS_COUNT, COLS_COUNT);
 
         Assert.assertEquals(board.getCurrentPlayer(), Utils.Player.FIRST_PLAYER);
 
@@ -34,10 +34,10 @@ public class ModelsUnitTest {
         Assert.assertEquals(board.getCurrentPlayer(), Utils.Player.SECOND_PLAYER);
 
         int lastAvailableRow = board.lastAvailableRow(0);
-        Assert.assertEquals(lastAvailableRow, rowsCount - 1);
+        Assert.assertEquals(lastAvailableRow, ROWS_COUNT - 1);
 
         Assert.assertFalse(board.isHasWinner());
-        for (int i = 0; i < countForWin; i++) {
+        for (int i = 0; i < COUNT_FOR_WIN; i++) {
             board.setCellOwner(lastAvailableRow, i);
             lastAvailableRow = board.lastAvailableRow(i + 1);
         }

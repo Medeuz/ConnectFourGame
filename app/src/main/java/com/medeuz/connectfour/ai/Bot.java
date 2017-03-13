@@ -59,6 +59,7 @@ public class Bot {
 
     /***
      * Getter for col of Bot's turn
+     *
      * @return integer of col or -1 if bot cannot make turn
      */
     public int getSolutionCol() {
@@ -74,10 +75,11 @@ public class Bot {
                         ? possibleSolutions.get(i) : maxCountPlayer;
             }
 
-            if (maxCountBot.countBot <= maxCountPlayer.countPlayer)
+            if (maxCountBot.countBot <= maxCountPlayer.countPlayer) {
                 return maxCountPlayer.col;
-            else
-                return maxCountBot.col;
+            }
+
+            return maxCountBot.col;
         }
 
         return -1;
