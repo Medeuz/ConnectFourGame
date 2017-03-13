@@ -7,6 +7,7 @@ import com.medeuz.connectfour.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+//ToDo implement Alpha-Beta Pruning algo for bot
 public class Bot {
 
     private Board mBoard;
@@ -56,6 +57,10 @@ public class Bot {
         return solutions;
     }
 
+    /***
+     * Getter for col of Bot's turn
+     * @return integer of col or -1 if bot cannot make turn
+     */
     public int getSolutionCol() {
         List<Solution> possibleSolutions = getPossibleSolutions();
         if (possibleSolutions.size() > 0) {
@@ -79,8 +84,9 @@ public class Bot {
     }
 
     private class Solution {
-        int countBot;
-        int countPlayer;
+
+        int countBot; // max count of connected Bot Cells for last available row and passed col
+        int countPlayer; // max count of connected Player Cells for last available row and passed col
         int col;
 
         Solution(int countBot, int countPlayer, int col) {

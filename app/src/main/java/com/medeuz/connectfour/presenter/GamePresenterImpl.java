@@ -24,7 +24,7 @@ public class GamePresenterImpl implements IGamePresenter {
 
         int row = mBoard.lastAvailableRow(col);
 
-        if (row == -1) return;
+        if (row == -1 || col == -1) return;
 
         mBoard.setCellOwner(row, col);
         mView.showTurn(row, col, mBoard.getCurrentPlayer());

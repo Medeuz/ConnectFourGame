@@ -22,6 +22,9 @@ public class Board {
         reset();
     }
 
+    /***
+     * Reset board to initial state
+     */
     public void reset() {
         hasWinner = false;
         firstTurn = true;
@@ -32,6 +35,10 @@ public class Board {
         }
     }
 
+    /***
+     *  Getter for current win state of board
+     * @return boolean of hasWinner flag
+     */
     public boolean isHasWinner() {
         return hasWinner;
     }
@@ -51,6 +58,10 @@ public class Board {
         mCells[row][col].setPlayer(getCurrentPlayer());
     }
 
+    /***
+     *  Process board to check is current player won and sets hasWinner flag to true
+     * @return boolean which shows is winning turn
+     */
     public boolean isWinTurn() {
         for (int col = 0; col < mColsCount; col++) {
             if (isFourConnected(getCurrentPlayer(), 0, 1, 0, col, 0)
@@ -73,6 +84,11 @@ public class Board {
         return false;
     }
 
+    /***
+     * Getter for last available row in passed col
+     * @param col - in what col we should get last available row
+     * @return last available row or -1 if no rows left in passed col
+     */
     public int lastAvailableRow(int col) {
         for (int row = mRowsCount - 1; row >= 0; row--) {
             if (mCells[row][col].getPlayer() == Utils.Player.NONE) {
@@ -82,6 +98,16 @@ public class Board {
         return -1;
     }
 
+    /***
+     * Recursive function which check is passed Cell connected with other 3 cells
+     * @param player current player which cell we checking
+     * @param x parameter for recursion to move col in different directions
+     * @param y parameter for recursion to move row in different directions
+     * @param row of cell
+     * @param col of cell
+     * @param count recursive accumulator of connected cells
+     * @return boolean is 4 cells connected
+     */
     private boolean isFourConnected(Utils.Player player, int x, int y, int row, int col, int count) {
         if (count >= 4) {
             return true;
@@ -99,6 +125,16 @@ public class Board {
         }
     }
 
+    //Todo move it to Bot module by changing a little functionality of Board model.
+    /***
+     * Recursive function which calculate count of connected cells needs only for AI Bot.
+     * @param player current player which cell we checking
+     * @param x parameter for recursion to move col in different directions
+     * @param y parameter for recursion to move row in different directions
+     * @param row of cell
+     * @param col of cell
+     * @return integer of connected cells
+     */
     public int getConnectedCount(Utils.Player player, int x, int y, int row, int col) {
 
         if (col < 0 || col >= mColsCount || row < 0 || row >= mRowsCount) {
